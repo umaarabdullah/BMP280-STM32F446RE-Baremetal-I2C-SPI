@@ -1,0 +1,13 @@
+--cpu=Cortex-M4.fp.sp
+".\objects\main.o"
+".\objects\gpio_config.o"
+".\objects\rcc_clock_config.o"
+".\objects\spi_master.o"
+".\objects\timer_config.o"
+".\objects\usart_config.o"
+".\objects\lcd_driver.o"
+".\objects\startup_stm32f446xx.o"
+".\objects\system_stm32f4xx.o"
+--ro-base 0x08000000 --entry 0x08000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\SPI_INTERRUPT_BME_280_C.map" -o .\Objects\SPI_INTERRUPT_BME_280_C.axf
