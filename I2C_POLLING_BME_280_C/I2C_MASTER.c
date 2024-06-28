@@ -108,6 +108,7 @@ void I2C1_MASTER_SLAVEADDRESS_TRANSMIT(uint8_t slaveAddress, uint8_t LSB){			// 
 	// Clear ADDR Bit by a Read to SR1 followed by a Read to SR2
 	uint32_t tempRead = I2C1->SR1;
 	tempRead = I2C1->SR2;
+	(void) tempRead;
 }
 // Slave Address Transmission for single byte readout
 void I2C1_MASTER_SLAVEADDRESS_TRANSMIT_SINGLE_BYTE_READ(uint8_t slaveAddress, uint8_t LSB){
@@ -124,21 +125,24 @@ void I2C1_MASTER_SLAVEADDRESS_TRANSMIT_SINGLE_BYTE_READ(uint8_t slaveAddress, ui
 	
 	uint8_t tmp;
 	tmp = (uint8_t) I2C1->DR;		// Tmp read
+	(void) tmp;
 	
 	// Wait for ADDR bit to set in SR1 which indicates that the slave address has matched and end of SLAVE Address Transmission
 	while(!(I2C1->SR1 & I2C_SR1_ADDR));
 	
 	// Clear ACK bit 
 	I2C1->CR1 &= ~(I2C_CR1_ACK);
-	
-	// Wait for RXNE Flag bit to set in the status register
-	while(!(I2C1->SR1 & I2C_SR1_RXNE));
-	
-	tmp = (uint8_t) I2C1->DR;		// Tmp read
-	
+	UART2_SendString((uint8_t *)" Got here6\n");
+
 	// Clear ADDR Bit by a Read to SR1 followed by a Read to SR2
 	uint32_t tempRead = I2C1->SR1;
 	tempRead = I2C1->SR2;
+	(void) tempRead;
+	
+	// Wait for RXNE Flag bit to set in the status register
+	while(!(I2C1->SR1 & I2C_SR1_RXNE));
+	UART2_SendString((uint8_t *)" Got here7\n");
+	tmp = (uint8_t) I2C1->DR;		// Tmp read
 }
 
 // Slave Address Transmission for Multi Byte readout
@@ -160,6 +164,7 @@ void I2C1_MASTER_SLAVEADDRESS_TRANSMIT_MULTIPLE_BYTE_READ(uint8_t slaveAddress, 
 	// Clear ADDR Bit by a Read to SR1 followed by a Read to SR2
 	uint32_t tempRead = I2C1->SR1;
 	tempRead = I2C1->SR2;
+	(void) tempRead;
 	
 	// READING MULTIPLE BYTES UPTO 3RD LAST BYTE
 	int i;
