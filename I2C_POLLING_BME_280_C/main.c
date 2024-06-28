@@ -368,13 +368,19 @@ void READ_SENSOR_ID(void){
 		d) Read the data from the DR 
 	***/
 	
+	UART2_SendString((uint8_t *)" Got here1\n");
 	I2C1_MASTER_START();
+	UART2_SendString((uint8_t *)" Got here2\n");
 	I2C1_MASTER_SLAVEADDRESS_TRANSMIT(BME280_Chip_Address, 0);
+	UART2_SendString((uint8_t *)" Got here3\n");
 	I2C1_MASTER_TRANSMIT(0xD0);
+	UART2_SendString((uint8_t *)" Got here4\n");
 	I2C1_MASTER_START();
+	UART2_SendString((uint8_t *)" Got here5\n");
 	I2C1_MASTER_SLAVEADDRESS_TRANSMIT_SINGLE_BYTE_READ(BME280_Chip_Address, 1);
 	//I2C1_MASTER_STOP();
 	//I2C1_MASTER_DISABLE();
+	UART2_SendString((uint8_t *)" Got here!!\n");
 
 	uint8_t id = (uint8_t)I2C1->DR;
 	char strID[20];
@@ -429,7 +435,7 @@ void BME280Config(void){
 }
 
 
-// Returns temperature in DegC, resolution is 0.01 DegC. Output value of “5123” equals 51.23 DegC.
+// Returns temperature in DegC, resolution is 0.01 DegC. Output value of ï¿½5123ï¿½ equals 51.23 DegC.
 // t_fine carries fine temperature as global value
 BME280_S32_t BME280_compensate_T_int32(BME280_S32_t adc_T){
 
@@ -443,7 +449,7 @@ BME280_S32_t BME280_compensate_T_int32(BME280_S32_t adc_T){
 
 
 // Returns pressure in Pa as unsigned 32 bit integer in Q24.8 format (24 integer bits and 8 fractional bits).
-// Output value of “24674867” represents 24674867/256 = 96386.2 Pa = 963.862 hPa
+// Output value of ï¿½24674867ï¿½ represents 24674867/256 = 96386.2 Pa = 963.862 hPa
 BME280_U32_t BME280_compensate_P_int64(BME280_S32_t adc_P){
 	
 	BME280_S64_t var1, var2, p;
